@@ -1,0 +1,16 @@
+.dayPicture {
+   position: fixed;
+   width: 100%;
+   height: 100vh;
+   top: 0;
+   left: 0;
+   object-fit: cover;
+   z-index: -1;
+   will-change: transform;
+   transition: opacity .3s ease-out;
+}
+
+.dayPictureDarken {
+   @extend .dayPicture;
+   opacity: 0.5;
+}
