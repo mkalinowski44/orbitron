@@ -18,8 +18,6 @@ class Item extends React.Component {
             this.setState({
                imageLoaded: true
             })
-
-            console.log(this.state)
          }
       })
    }

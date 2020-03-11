@@ -11,6 +11,7 @@ import DayPicture from './components/DayPicture/DayPicture'
 import Navigation from './components/Navigation/Navigation'
 import Search from './components/Search/Search'
 import Content from './components/Content/Content'
+import ToTop from './components/ToTop/ToTop'
 
 import Earth from './views/Earth'
 import Mars from './views/Mars'
@@ -19,13 +20,49 @@ import Exoplanets from './views/Exoplanets'
 
 class App extends React.Component {
    state = {
-      showRecords: window.location.pathname === '/' ? false : true
+      showRecords: window.location.pathname === '/' ? false : true,
+      waitRender: false,
+      scrollTop: 0
+   }
+
+   componentDidMount() {
+      window.addEventListener('scroll', (e) => {
+
+         // console.log('scroll')
+         this.debounce(() => {
+            this.setState({
+               scrollTop: window.scrollY
+            })
+         }, 300)
+      })
+   }
+
+   debounce(func, wait) {
+      if(this.debounceTimeout) {
+         clearTimeout(this.debounceTimeout)
+      }
+      this.debounceTimeout = setTimeout(() => {
+         func()
+      }, wait)
    }
 
    setShowRecords(value) {
-      this.setState({
-         showRecords: value
-      })
+      if(this.state.showRecords === false && value === true) {
+         this.setState({
+            showRecords: true,
+            waitRender: true
+         }, () => {
+            setTimeout(() => {
+               this.setState({
+                  waitRender: false
+               })
+            }, 450)
+         })
+      } else {
+         this.setState({
+            showRecords: value
+         })
+      }
    }
 
    render() {
@@ -57,6 +94,7 @@ class App extends React.Component {
                         </Route>
                      </Switch>
                   </Content>
+                  <ToTop />
                </div>
             </Context.Provider>
          </Router>
