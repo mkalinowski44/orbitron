@@ -19,6 +19,10 @@ body {
 
 .wrapper {
    width: 100%;
+}
+
+.wrapperNoScroll {
+   @extend .wrapper;
    height: 100vh;
-   overflow-y: auto;
+   overflow: hidden;
 }
