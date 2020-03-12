@@ -1,8 +1,10 @@
 import React from 'react';
 import styles from './Index.module.scss'
 import Context from './Context'
+import { debounce } from './Utils'
 import {
    BrowserRouter as Router,
+   useParams,
    Switch,
    Route
 } from "react-router-dom"
@@ -12,38 +14,61 @@ import Navigation from './components/Navigation/Navigation'
 import Search from './components/Search/Search'
 import Content from './components/Content/Content'
 import ToTop from './components/ToTop/ToTop'
+import Gallery from './components/Gallery/Gallery'
+// import Article from './components/Article/Article'
 
-import Earth from './views/Earth'
-import Mars from './views/Mars'
-import Asteroids from './views/Asteroids'
-import Exoplanets from './views/Exoplanets'
+const RenderGallery = ({searchValue, title}) => {
+   let {search} = useParams()
+   if(searchValue) {
+      search = searchValue
+   }
+
+   let titleValue = title || 'Search: ' + search
+
+   return (
+      <Gallery search={search} title={titleValue} />
+   )
+}
 
 class App extends React.Component {
    state = {
       showRecords: window.location.pathname === '/' ? false : true,
       waitRender: false,
-      scrollTop: 0
+      scrollTop: 0,
+      articleData: 1,
+      searchPhrase: '',
+      path: ['', '']
+   }
+
+   setSearchPhrase(phrase) {
+      this.setState({
+         searchPhrase: phrase
+      })
    }
 
    componentDidMount() {
       window.addEventListener('scroll', (e) => {
-
-         // console.log('scroll')
-         this.debounce(() => {
+         debounce(() => {
             this.setState({
                scrollTop: window.scrollY
             })
          }, 300)
       })
+      this.setPath()
    }
 
-   debounce(func, wait) {
-      if(this.debounceTimeout) {
-         clearTimeout(this.debounceTimeout)
-      }
-      this.debounceTimeout = setTimeout(() => {
-         func()
-      }, wait)
+   openArticle(data) {
+      this.setState({
+         articleData: data
+      })
+      window.classList.add('noScroll')
+   }
+
+   closeArticle() {
+      this.setState({
+         articleData: null
+      })
+      window.classList.remove('noScroll')
    }
 
    setShowRecords(value) {
@@ -63,12 +88,25 @@ class App extends React.Component {
             showRecords: value
          })
       }
+      this.setPath()
+
+   }
+
+   setPath() {
+      setTimeout(() => {
+         this.setState({
+            path: window.location.pathname.split('/')
+         })
+      },0)
    }
 
    render() {
       const contextData = {
          ...this.state,
-         setShowRecords: this.setShowRecords.bind(this)
+         setShowRecords: this.setShowRecords.bind(this),
+         openArticle: this.openArticle.bind(this),
+         closeArticle: this.closeArticle.bind(this),
+         setSearchPhrase: this.setSearchPhrase.bind(this)
       }
 
       return (
@@ -80,21 +118,15 @@ class App extends React.Component {
                   <Search />
                   <Content>
                      <Switch>
-                        <Route path="/earth">
-                           <Earth />
-                        </Route>
-                        <Route path="/mars">
-                           <Mars />
-                        </Route>
-                        <Route path="/asteroids">
-                           <Asteroids />
-                        </Route>
-                        <Route path="/exoplanets">
-                           <Exoplanets />
-                        </Route>
+                        <Route exact path="/earth" children={<RenderGallery searchValue="earth" title="Earth" />} />
+                        <Route exact path="/mars" children={<RenderGallery searchValue="mars" title="Mars" />} />
+                        <Route exact path="/asteroids" children={<RenderGallery searchValue="asteroids" title="Asteroids" />} />
+                        <Route exact path="/exoplanets" children={<RenderGallery searchValue="exoplanets" title="Exoplanets" />} />
+                        <Route path="/:search" children={<RenderGallery />} />
                      </Switch>
                   </Content>
                   <ToTop />
+                  {/* <Article data={this.state.articleData} /> */}
                </div>
             </Context.Provider>
          </Router>
