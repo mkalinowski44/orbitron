@@ -10,10 +10,14 @@ import Loader from '../Loader/Loader'
 class Gallery extends React.Component {
    state = {
       data: null,
+      isMounted: false
    }
 
    componentDidMount() {
       this.getData()
+      this.setState({
+         isMounted: true
+      })
    }
 
    componentDidUpdate(prevProps) {

@@ -13,3 +13,13 @@ export function getAsset(nasa_id, callbackFn) {
       callbackFn(res.data.collection)
    })
 }
+
+export function getPreviewData(link, callbackFn) {
+   axios.get(link)
+   .then(res => {
+      callbackFn(res)
+   })
+   .catch(error => {
+      callbackFn(false)
+   })
+}

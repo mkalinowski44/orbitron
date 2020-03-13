@@ -1,3 +1,5 @@
+@import '../../css/Utils.module.scss';
+
 .wrapper {
    position: fixed;
    width: 100%;
@@ -16,6 +18,36 @@
    }
 }
 
+@keyframes showLoader {
+   from {
+      opacity: 0;
+      transform: scale(0) translate(-50%, -50%);
+   }
+   to {
+      opacity: 1;
+      transform: scale(1) translate(-50%, -50%);
+   }
+}
+
+.loaderContainer {
+   position: absolute;
+   width: 140px;
+   height: 140px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background: rgba(black, 0.7);
+   border-radius: 15px;
+   border: 2px solid $border-color-transparent;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transform-origin: top left;
+
+   animation-name: showLoader;
+   animation-duration: .5s;
+}
+
 .imageLayer {
    position: absolute;
    z-index: 0;
@@ -26,6 +58,7 @@
    background-color: rgba(black, 0.7);
    will-change: transform;
    transition: transform .4s ease-out;
+   padding: 20px 420px 20px 20px;
 }
 
 .infoLayer {
@@ -35,8 +68,8 @@
    width: 400px;
    height: 100vh;
    z-index: 1;
-   background-color: rgba(rgb(15, 13, 9), 0.9);
-   border-left: 2px solid rgba(255, 214, 107, .42);
+   background-color: $article-background-color;
+   border-left: 2px solid $border-color-transparent;
    will-change: transform;
    transition: transform .4s ease-out;
    padding: 20px;

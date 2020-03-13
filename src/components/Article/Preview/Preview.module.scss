@@ -1,0 +1,66 @@
+@import '../../../css/Utils.module.scss';
+
+.wrapper {
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+@keyframes showElement {
+   from {
+      opacity: 0;
+      transform: scale(0.9);
+   }
+   to {
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+
+.video {
+   width: 100%;
+   height: 100%;
+   will-change: transform;
+   outline: none;
+
+   animation-name: showElement;
+   animation-duration: 1s;
+}
+
+.image {
+   object-fit: contain;
+   max-width: 100%;
+   max-height: 100%;
+   min-height: 50%;
+   will-change: transform;
+
+   animation-name: showElement;
+   animation-duration: 1s;
+}
+
+.audio {
+   max-width: 100%;
+   min-width: 50%;
+   will-change: transform;
+
+   animation-name: showElement;
+   animation-duration: 1s;
+}
+
+.pre {
+   background-color: $article-background-color;
+   padding: 20px;
+   border-radius: 15px;
+   border: 1px solid $border-color-transparent;
+   height: 100%;
+   overflow-y: auto;
+   white-space: pre-wrap;
+   will-change: transform;
+   font-family: 'Quicksand', sans-serif;
+
+   animation-name: showElement;
+   animation-duration: 1s;
+}

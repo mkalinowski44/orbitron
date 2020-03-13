@@ -10,6 +10,7 @@ const NavList = () => (
          <NavItem path="/mars">Mars</NavItem>
          <NavItem path="/asteroids">Asteroids</NavItem>
          <NavItem path="/exoplanets">Exoplanets</NavItem>
+         <NavItem path="/orbitron">Orbitron.</NavItem>
       </ul>
    </nav>
 )

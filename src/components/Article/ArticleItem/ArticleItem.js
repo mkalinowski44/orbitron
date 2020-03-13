@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './ArticleItem.module.scss'
 import Loader from '../../Loader/Loader'
+import Context from '../../../Context'
 
 import SoundImg from '../../../assets/images/Sound.svg'
 import VideoImg from '../../../assets/images/Video overlay.svg'
@@ -45,31 +46,39 @@ class ArticleItem extends React.Component {
       else if(ext === 'json') {
          this.setState({
             image: CodeImg,
-            type: 'pre'
+            type: 'json'
          })
       }
    }
 
    render() {
       return (
-         <>
-         {this.state.type !== null && (
-            <div className={styles.wrapper}>
-            <div className={styles.imageContainer}>
-               {this.state.imageLoading === false ? (
-                  <img
-                     alt=""
-                     src={this.state.image}
-                     className={styles.image}
-                  />
-               ) : (
-                  <Loader />
-               )}
-            </div>
-            <div className={styles.shadow}></div>
-            </div>
-         )}
-         </>
+         <Context.Consumer>
+            {context => (
+               <>
+                  {this.state.type !== null && (
+                     <div
+                        className={styles.wrapper}
+                        onClick={() => context.showPreview(this.state.href, this.state.type)}
+                     >
+                        <div className={styles.imageContainer}>
+                           {this.state.imageLoading === false ? (
+                              <img
+                                 alt=""
+                                 src={this.state.image}
+                                 className={styles.image}
+                              />
+                           ) : (
+                              <Loader />
+                           )}
+                        </div>
+                        <div className={styles.shadow}></div>
+                     </div>
+                  )}
+               </>
+            )}
+
+         </Context.Consumer>
       )
    }
 }
