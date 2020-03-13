@@ -1,7 +1,8 @@
 import React from 'react';
-import styles from './Index.module.scss'
+import styles from './css/Index.module.scss'
 import Context from './Context'
 import { debounce } from './Utils'
+import { getAsset } from './API'
 import {
    BrowserRouter as Router,
    useParams,
@@ -15,7 +16,7 @@ import Search from './components/Search/Search'
 import Content from './components/Content/Content'
 import ToTop from './components/ToTop/ToTop'
 import Gallery from './components/Gallery/Gallery'
-// import Article from './components/Article/Article'
+import Article from './components/Article/Article'
 
 const RenderGallery = ({searchValue, title}) => {
    let {search} = useParams()
@@ -35,9 +36,9 @@ class App extends React.Component {
       showRecords: window.location.pathname === '/' ? false : true,
       waitRender: false,
       scrollTop: 0,
-      articleData: 1,
+      articleData: null,
       searchPhrase: '',
-      path: ['', '']
+      path: ['']
    }
 
    setSearchPhrase(phrase) {
@@ -54,21 +55,35 @@ class App extends React.Component {
             })
          }, 300)
       })
+      window.addEventListener('mouseup', (e) => {
+         if(e.button === 3 || e.button === 4) {
+            setTimeout(() => {
+               this.setPath()
+            }, 10)
+         }
+      })
+
       this.setPath()
    }
 
-   openArticle(data) {
-      this.setState({
-         articleData: data
+   getArticleData(nasa_id) {
+      getAsset(nasa_id, data => {
+         this.setState({
+            articleData: data,
+         })
       })
-      window.classList.add('noScroll')
+   }
+
+   openArticle() {
+      this.getArticleData(this.state.path[1])
+      document.getElementsByTagName('body')[0].classList.add(styles.noScroll)
    }
 
    closeArticle() {
       this.setState({
          articleData: null
       })
-      window.classList.remove('noScroll')
+      document.getElementsByTagName('body')[0].classList.remove(styles.noScroll)
    }
 
    setShowRecords(value) {
@@ -94,8 +109,20 @@ class App extends React.Component {
 
    setPath() {
       setTimeout(() => {
+         let path = window.location.pathname.split('/');
+
+         let filtered = path.filter(el => {
+            return el !== ''
+         })
+
          this.setState({
-            path: window.location.pathname.split('/')
+            path: filtered
+         }, () => {
+            if(filtered.length === 2) {
+               this.openArticle()
+            } else {
+               this.closeArticle()
+            }
          })
       },0)
    }
@@ -118,15 +145,15 @@ class App extends React.Component {
                   <Search />
                   <Content>
                      <Switch>
-                        <Route exact path="/earth" children={<RenderGallery searchValue="earth" title="Earth" />} />
-                        <Route exact path="/mars" children={<RenderGallery searchValue="mars" title="Mars" />} />
-                        <Route exact path="/asteroids" children={<RenderGallery searchValue="asteroids" title="Asteroids" />} />
-                        <Route exact path="/exoplanets" children={<RenderGallery searchValue="exoplanets" title="Exoplanets" />} />
+                        <Route path="/earth" children={<RenderGallery searchValue="earth" title="Earth" />} />
+                        <Route path="/mars" children={<RenderGallery searchValue="mars" title="Mars" />} />
+                        <Route path="/asteroids" children={<RenderGallery searchValue="asteroids" title="Asteroids" />} />
+                        <Route path="/exoplanets" children={<RenderGallery searchValue="exoplanets" title="Exoplanets" />} />
                         <Route path="/:search" children={<RenderGallery />} />
                      </Switch>
                   </Content>
                   <ToTop />
-                  {/* <Article data={this.state.articleData} /> */}
+                  <Article />
                </div>
             </Context.Provider>
          </Router>

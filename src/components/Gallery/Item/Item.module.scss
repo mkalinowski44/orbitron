@@ -1,3 +1,5 @@
+@import '../../../css/Utils.module.scss';
+
 .wrapper {
    height: 0;
    padding-top: 100%;
@@ -118,7 +120,7 @@
    left: 0;
    top: 0;
    border-radius: 10px;
-   box-shadow: 0 0 25px -10px rgb(114, 191, 255);
+   box-shadow: $hover-shadow;
    z-index: 1;
    will-change: transform;
    transition: opacity .2s linear;

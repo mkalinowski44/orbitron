@@ -54,7 +54,7 @@ class Item extends React.Component {
                   <div className={styles.content}>
                      {this.state.imageLoaded ? (
                         <Link
-                           to={"/" + context.path[1] + '/' + this.state.data.data[0].nasa_id}
+                           to={"/" + context.path[0] + '/' + this.state.data.data[0].nasa_id}
                            className={styles.link}
                            onClick={() => context.setShowRecords(true)}
                         >

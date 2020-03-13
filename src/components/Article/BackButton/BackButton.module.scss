@@ -1,8 +1,9 @@
-@import '../../css/Utils.module.scss';
+@import '../../../css/Utils.module.scss';
 
 .button {
    position: fixed;
-   bottom: 20px;
+   text-decoration: none;
+   top: 20px;
    right: 20px;
    width: 40px;
    height: 40px;
@@ -14,9 +15,9 @@
    background: rgba(black, 0.5);
    color: white;
    cursor: pointer;
-   transition: border-color .2s linear, color .2s linear, transform .3s ease-out;
-   outline-color: rgb(255, 214, 107);
-
+   transition: border-color .2s linear, color .2s linear, opacity .3s linear;
+   outline-color: $border-color;
+   z-index: 2;
    &:hover {
       border-color: $border-color-transparent;
       color: rgb(255, 214, 107);
@@ -25,6 +26,5 @@
 
 .buttonHidden {
    @extend .button;
-
-   transform: translateY(65px);
+   opacity: 0;
 }
