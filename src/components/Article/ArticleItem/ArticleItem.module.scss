@@ -8,6 +8,7 @@
    border: 1px solid $border-color-transparent;
    position: relative;
    transition: border-color .3s linear;
+   cursor: pointer;
 
    &:hover {
       border-color: rgba(white, 0.5);

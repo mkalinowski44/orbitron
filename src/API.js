@@ -15,6 +15,7 @@ export function getAsset(nasa_id, callbackFn) {
 }
 
 export function getPreviewData(link, callbackFn) {
+   link = link.replace('http', 'https')
    axios.get(link)
    .then(res => {
       callbackFn(res)

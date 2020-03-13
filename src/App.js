@@ -211,6 +211,9 @@ class App extends React.Component {
                               <p>
                                  About Orbitron. . .
                               </p>
+                              <p>
+                                 Version: 0.9.1
+                              </p>
                            </div>
                         </Route>
                         <Route path="/:search" children={<RenderGallery />} />

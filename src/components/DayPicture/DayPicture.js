@@ -9,11 +9,12 @@ import bg_image from '../../assets/images/Background.png'
 
 class DayPicture extends React.Component {
    state = {
-      image: bg_image,
-      title: 'Demo'
+      image: null,
+      title: 'Demo',
+      imageLoading: true
    }
 
-   getImageOfTheDay() {
+   componentDidMount() {
       axios.get('https://api.nasa.gov/planetary/apod', {
          params: {
             api_key: NASA_API_KEY
@@ -23,22 +24,47 @@ class DayPicture extends React.Component {
          this.setState({
             image: response.data.url,
             title: response.data.title,
+         }, () => {
+            this.loadImage()
+         })
+      })
+      .catch(error => {
+         this.setState({
+            image: bg_image,
+            title: 'Orbitron',
+         }, () => {
+            this.loadImage()
          })
       })
    }
 
-   render() {
-      // this.getImageOfTheDay()
+   loadImage() {
+      const image = new Image()
+      image.src = this.state.image
+      image.onload = () => {
+         this.setState({
+            imageLoading: false
+         })
+      }
+   }
 
+   render() {
       return (
          <Context.Consumer>
             {context => {
                return (
-                  <img
-                     alt={this.state.title}
-                     src={this.state.image}
-                     className={context.showRecords ? styles.dayPictureDarken : styles.dayPicture}
-                  />
+                  <>
+                  {this.state.imageLoading === false && (
+                     <>
+                        <img
+                           alt={this.state.title}
+                           src={this.state.image}
+                           className={styles.dayPicture}
+                        />
+                        <div className={context.showRecords === true ? styles.darkOverlayActive : styles.darkOverlay}></div>
+                     </>
+                  )}
+                  </>
                )
             }}
          </Context.Consumer>
