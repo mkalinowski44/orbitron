@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './NasaLink.module.scss'
 import NasaLogo from '../../../assets/images/Nasa logo.png'
 
-const NasaLink = () => (
+const NasaLink = ({isOpen, showNavigationFn}) => (
    <div className={styles.wrapper}>
       <a
          className={styles.link}
@@ -12,6 +12,16 @@ const NasaLink = () => (
       >
          <img src={NasaLogo} className={styles.logo} alt="Nasa Logo" />
       </a>
+      {!isOpen && (
+         <button
+            className={styles.showNav}
+            onClick={() => showNavigationFn()}
+         >
+            <i className="material-icons">
+               more_vert
+            </i>
+         </button>
+      )}
    </div>
 )
 

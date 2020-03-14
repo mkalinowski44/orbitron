@@ -1,3 +1,5 @@
+@import '../../css/Utils.module.scss';
+
 .wrapper {
    text-align: center;
    padding: 20px 0;
@@ -7,4 +9,7 @@
    font-size: 36px;
    font-weight: 400;
    font-family: 'Orbitron', sans-serif;
+   @include screen("xs", "md") {
+      font-size: 32px;
+   }
 }

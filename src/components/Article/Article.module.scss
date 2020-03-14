@@ -2,8 +2,8 @@
 
 .wrapper {
    position: fixed;
-   width: 100%;
-   height: 100%;
+   width: 100vw;
+   height: 100vh;
    top: 0;
    left: 0;
    z-index: 3;
@@ -46,6 +46,11 @@
 
    animation-name: showLoader;
    animation-duration: .5s;
+
+   @include screen("xs", "md") {
+      width: 120px;
+      height: 120px;
+   }
 }
 
 .imageLayer {
@@ -59,6 +64,10 @@
    will-change: transform;
    transition: transform .4s ease-out;
    padding: 20px 420px 20px 20px;
+
+   @include screen("xs", "md") {
+      padding: 10px 10px 110px 10px;
+   }
 }
 
 .infoLayer {
@@ -74,6 +83,22 @@
    transition: transform .4s ease-out;
    padding: 20px;
    overflow-y: auto;
+
+   @include scrollbar();
+
+   @include screen("xs", "md") {
+      width: 100vw;
+      height: 100px;
+      bottom: 0;
+      top: auto;
+      border-top: 2px solid $border-color-transparent;
+      border-left: none;
+      overflow-y: hidden;
+      overflow-x: auto;
+      display: flex;
+      padding: 10px;
+      @include scrollbar-horizontal();
+   }
 }
 
 .header {
@@ -87,4 +112,22 @@
    text-align: center;
    font-size: 14px;
    word-wrap: break-word;
+}
+
+.headerContainer {
+   @include screen("xs", "md") {
+      height: 80px;
+
+      h1, h2 {
+         margin: 10px 20px 10px 0;
+         text-align: left;
+         white-space: nowrap;
+      }
+   }
+}
+
+.separatorWrapper {
+   @include screen("xs", "md") {
+      display: none;
+   }
 }

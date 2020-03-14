@@ -4,12 +4,33 @@ import Logo from './Logo/Logo'
 import NavList from './NavList/NavList'
 import NasaLink from './NasaLink/NasaLink'
 
-const Navigation = () => (
-   <div className={styles.wrapper}>
-      <Logo />
-      <NavList />
-      <NasaLink />
-   </div>
-)
+class Navigation  extends React.Component {
+   state = {
+      isOpen: false
+   }
+
+   showNavigation() {
+      this.setState({
+         isOpen: true
+      })
+   }
+
+   hideNavigation() {
+      console.log('test')
+      this.setState({
+         isOpen: false
+      })
+   }
+
+   render() {
+      return (
+         <div className={styles.wrapper}>
+            <Logo />
+            <NavList isOpen={this.state.isOpen} hideNavigationFn={this.hideNavigation.bind(this)} />
+            <NasaLink isOpen={this.state.isOpen} showNavigationFn={this.showNavigation.bind(this)} />
+         </div>
+      )
+   }
+}
 
 export default Navigation

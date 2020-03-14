@@ -21,6 +21,13 @@
          opacity: 1;
       }
    }
+
+   @include screen("xs", "md") {
+      height: 80px;
+      flex-basis: 80px;
+      flex-shrink: 0;
+      margin-left: 10px;
+   }
 }
 
 .imageContainer {

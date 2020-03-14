@@ -8,7 +8,6 @@ $leftEffectImg: url('../../assets/images/flare.png');
    min-height: 100vh;
    border-radius: 15px;
    box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.6);
-   // backdrop-filter: blur(50px);
    border: 2px solid $border-color-transparent;
    will-change: transform;
    transition: transform .4s ease-out, opacity .2s ease-in;
@@ -24,7 +23,7 @@ $leftEffectImg: url('../../assets/images/flare.png');
 .flares {
    position: fixed;
    top: 50%;
-   width: 100%;
+   width: 100vw;
    display: flex;
    transform: translateY(-50%);
    will-change: transform;

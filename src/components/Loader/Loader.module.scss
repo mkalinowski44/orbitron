@@ -1,3 +1,5 @@
+@import '../../css/Utils.module.scss';
+
 @keyframes rotate {
    from {
       transform: rotate(0deg);
@@ -11,6 +13,10 @@
    position: relative;
    height: 120px;
    pointer-events: none;
+
+   @include screen("xs", "md") {
+      height: 80px;
+   }
 }
 
 .circle {
@@ -26,6 +32,13 @@
    animation-duration: 1.2s;
    animation-iteration-count: infinite;
    animation-timing-function: linear;
+
+   @include screen("xs", "md") {
+      width: 60px;
+      height: 60px;
+      top: calc(50% - 30px);
+      left: calc(50% - 30px);
+   }
 }
 
 .label {

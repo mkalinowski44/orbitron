@@ -1,3 +1,5 @@
+@import './Utils.module.scss';
+
 // Typography
 @import url('https://fonts.googleapis.com/css?family=Orbitron:400,700|Quicksand:300,400&display=swap');
 
@@ -11,6 +13,10 @@ body {
    color: white;
    font-family: 'Quicksand', sans-serif;
    font-weight: 300;
+   width: 100vw;
+   overflow-x: hidden;
+
+   @include scrollbar();
 }
 
 .noScroll {
@@ -22,7 +28,7 @@ body {
 }
 
 .wrapper {
-   width: 100%;
+   width: 100vw;
 }
 
 .wrapperNoScroll {

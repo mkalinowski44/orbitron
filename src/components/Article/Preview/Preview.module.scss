@@ -61,6 +61,8 @@
    will-change: transform;
    font-family: 'Quicksand', sans-serif;
 
+   @include scrollbar();
+
    animation-name: showElement;
    animation-duration: 1s;
 }

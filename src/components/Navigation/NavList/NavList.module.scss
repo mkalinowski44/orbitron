@@ -1,5 +1,31 @@
+@import '../../../css/Utils.module.scss';
+
 .wrapper {
    position: relative;
+
+   @include screen("xs", "md") {
+      order: 1;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: rgba(black, 0.7);
+      text-align: center;
+      padding: 20px;
+      max-height: 100vh;
+      z-index: 10;
+      overflow-y: auto;
+      overflow-x: hidden;
+      will-change: transform;
+      transform: translateY(-100vh);
+      transition: transform .3s ease-out;
+   }
+}
+
+.wrapperOpen {
+   @extend .wrapper;
+
+   transform: translateY(0);
 }
 
 .list {
@@ -8,6 +34,11 @@
    display: flex;
    position: relative;
    z-index: 1;
+
+   @include screen("xs", "md") {
+      flex-direction: column;
+      align-items: stretch;
+   }
 }
 
 .navGradient {
@@ -20,4 +51,16 @@
    top: 0;
    z-index: 0;
    background: radial-gradient(50% 100% at 50% 0%, rgba(254, 244, 153, 0.79) 0%, rgba(254, 206, 149, 0.36) 44.79%, rgba(255, 198, 145, 0.09) 86.46%, rgba(255, 184, 143, 0) 100%);
+}
+
+.closeWrapper {
+   @include screen("lg", "xxl") {
+      display: none;
+   }
+
+   position: relative;
+   z-index: 1;
+   display: flex;
+   justify-content: flex-end;
+   margin-bottom: 20px;
 }

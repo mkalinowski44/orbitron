@@ -1,3 +1,5 @@
+@import '../../../../css/Utils.module.scss';
+
 .wrapper {
    list-style: none;
    padding: 0;
@@ -43,5 +45,9 @@
 
    &Active {
       border-top: 1px solid white;
+
+      @include screen("xs", "md") {
+         border-bottom: 1px solid white;
+      }
    }
 }

@@ -20,9 +20,13 @@ const Article = () => (
                <Preview previewData={context.previewData} loading={context.previewLoading} />
             </div>
             <div className={styles.infoLayer}>
-               <h1 className={styles.header}>Assets</h1>
-               <h2 className={styles.subheader}>NASA ID: {decodeURI(context.path[1])}</h2>
-               <Separator />
+               <div className={styles.headerContainer}>
+                  <h1 className={styles.header}>Assets</h1>
+                  <h2 className={styles.subheader}>NASA ID: {decodeURI(context.path[1])}</h2>
+               </div>
+               <div className={styles.separatorWrapper}>
+                  <Separator />
+               </div>
 
                {context.articleData && context.articleData.items.map((item, i) => (
                   <ArticleItem link={item.href} key={i} />
