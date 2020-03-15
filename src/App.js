@@ -20,6 +20,8 @@ import Gallery from './components/Gallery/Gallery'
 import Article from './components/Article/Article'
 import Header from './components/Header/Header'
 
+const version = '1.0.0'
+
 const RenderGallery = ({searchValue, title}) => {
    let {search} = useParams()
    if(searchValue) {
@@ -212,7 +214,10 @@ class App extends React.Component {
                                  About Orbitron. . .
                               </p>
                               <p>
-                                 Version: 0.9.1
+                                 Version: {version}
+                              </p>
+                              <p>
+                                 Development: Marcin Kalinowski
                               </p>
                            </div>
                         </Route>

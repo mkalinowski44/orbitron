@@ -21,20 +21,28 @@ class DayPicture extends React.Component {
          }
       })
       .then(response => {
-         this.setState({
-            image: response.data.url,
-            title: response.data.title,
-         }, () => {
-            this.loadImage()
-         })
+         if(response.data === 'image') {
+            this.setState({
+               image: response.data.url,
+               title: response.data.title,
+            }, () => {
+               this.loadImage()
+            })
+         } else {
+            this.setDefaultImage()
+         }
       })
       .catch(error => {
-         this.setState({
-            image: bg_image,
-            title: 'Orbitron',
-         }, () => {
-            this.loadImage()
-         })
+         this.setDefaultImage()
+      })
+   }
+
+   setDefaultImage() {
+      this.setState({
+         image: bg_image,
+         title: 'Orbitron',
+      }, () => {
+         this.loadImage()
       })
    }
 
